@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+
+export default function App() {
+  const [toggleHex, setToggleHex] = useState(true);
+  const [toggleRGB, setToggleRGB] = useState(false);
+
+  useEffect(() => {
+    console.log("Hex:", toggleHex, "RGB:", toggleRGB);
+  }, [toggleHex, toggleRGB]);
+
+  const handleHex = () => {
+    setToggleHex(true);
+    setToggleRGB(false);
+  };
+
+  const handleRGB = () => {
+    setToggleRGB(true);
+    setToggleHex(false);
+  };
+  
+  const generateHexColor=()=>{
+    const str='ABCDEF0123456789'
+    let code='#'
+    for(let i=0;i<6;i++){
+    code+=str.charAt((Math.floor(Math.random()*17)))  
+    }
+  }
+
+  const generateRGBColor=()=>{
+
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={handleHex}>Generate Hex</button>
+      <button onClick={handleRGB}>Generate RGB</button>
+      <button onClick={toggleHex?generateHexColor:generateRGBColor}></button>
+      {/* {document.body.style="background-color: "} */}
     </>
-  )
+  );
 }
-
-export default App
